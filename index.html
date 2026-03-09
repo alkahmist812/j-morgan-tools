@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>J. Morgan Ltd | AI Engagement Ring Designer</title>
+    <style>
+      :root {
+        --bg: #0b1020;
+        --panel: #121933;
+        --panel-2: #1a2345;
+        --text: #f5f7ff;
+        --muted: #b7bfdd;
+        --accent: #b7a170;
+        --accent-2: #d8c79a;
+        --danger: #ff7a7a;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        color: var(--text);
+        background: radial-gradient(circle at top, #1c2853, var(--bg) 55%);
+        min-height: 100vh;
+      }
+
+      .container {
+        width: min(1100px, 92vw);
+        margin: 32px auto;
+        display: grid;
+        gap: 20px;
+      }
+
+      .hero,
+      .panel {
+        background: linear-gradient(165deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 18px;
+        backdrop-filter: blur(6px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+      }
+
+      .hero {
+        padding: 28px;
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: clamp(1.7rem, 3.6vw, 2.8rem);
+        letter-spacing: 0.2px;
+      }
+
+      .subtitle {
+        margin: 0;
+        color: var(--muted);
+        max-width: 75ch;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      @media (min-width: 900px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+          align-items: start;
+        }
+      }
+
+      .panel { padding: 22px; }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+
+      textarea {
+        width: 100%;
+        min-height: 160px;
+        resize: vertical;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: var(--panel-2);
+        color: var(--text);
+        padding: 14px;
+        font: inherit;
+      }
+
+      .hint {
+        color: var(--muted);
+        margin: 8px 0 14px;
+        font-size: 0.92rem;
+      }
+
+      .btn-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      button,
+      .cta {
+        appearance: none;
+        border: none;
+        border-radius: 999px;
+        padding: 11px 18px;
+        font-weight: 700;
+        cursor: pointer;
+        font: inherit;
+        text-decoration: none;
+        transition: transform 0.12s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      }
+
+      button:hover,
+      .cta:hover {
+        transform: translateY(-1px);
+      }
+
+      .primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #221f16;
+        box-shadow: 0 8px 20px rgba(216, 199, 154, 0.35);
+      }
+
+      .secondary {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.24);
+        color: var(--text);
+      }
+
+      .image-wrap {
+        border-radius: 14px;
+        border: 1px dashed rgba(255, 255, 255, 0.25);
+        min-height: 420px;
+        display: grid;
+        place-items: center;
+        background: rgba(4, 8, 20, 0.48);
+        overflow: hidden;
+      }
+
+      .image-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .placeholder {
+        color: var(--muted);
+        text-align: center;
+        padding: 24px;
+      }
+
+      .status {
+        margin-top: 10px;
+        min-height: 24px;
+        color: var(--muted);
+      }
+
+      .status.error { color: var(--danger); }
+
+      .cta-box {
+        margin-top: 18px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      footer {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="hero">
+        <h1>Design Your Dream Ring with J. Morgan Ltd</h1>
+        <p class="subtitle">
+          Describe your ideal engagement ring and instantly generate a realistic AI concept image.
+          Once you love the design, request a bespoke quote or schedule a one-to-one appointment
+          with our jewelry consultants.
+        </p>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <label for="description">Ring description</label>
+          <textarea id="description" placeholder="Example: A platinum solitaire ring with a 2-carat oval diamond, hidden halo, pavé band, and elegant cathedral setting in soft studio lighting."></textarea>
+          <p class="hint">Tip: Include metal type, center stone shape and size, side stones, setting style, and mood/lighting.</p>
+
+          <div class="btn-row">
+            <button id="generate" class="primary">Generate AI Ring Image</button>
+            <button id="sample" class="secondary" type="button">Try Sample Prompt</button>
+          </div>
+
+          <p id="status" class="status" aria-live="polite"></p>
+
+          <div class="cta-box">
+            <a class="cta primary" href="mailto:sales@jmorganltd.com?subject=Engagement%20Ring%20Quote%20Request">Request a Quote</a>
+            <a class="cta secondary" href="mailto:appointments@jmorganltd.com?subject=Schedule%20an%20Appointment">Schedule Appointment</a>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="image-wrap" id="imageWrap">
+            <p class="placeholder" id="placeholder">Your generated ring concept will appear here.</p>
+          </div>
+          <footer>
+            AI images are conceptual inspiration pieces for consultation.
+          </footer>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      const description = document.getElementById('description');
+      const generateBtn = document.getElementById('generate');
+      const sampleBtn = document.getElementById('sample');
+      const imageWrap = document.getElementById('imageWrap');
+      const placeholder = document.getElementById('placeholder');
+      const statusText = document.getElementById('status');
+
+      function setStatus(message, isError = false) {
+        statusText.textContent = message;
+        statusText.classList.toggle('error', isError);
+      }
+
+      function buildPrompt(userDescription) {
+        return `Ultra realistic high-end jewelry product photo of an engagement ring: ${userDescription}. 8k detailed macro photography, soft studio lighting, clean luxury background, physically accurate metal reflections, photorealistic gemstone brilliance.`;
+      }
+
+      function createImage(url, alt) {
+        const img = new Image();
+        img.alt = alt;
+        img.src = url;
+        return img;
+      }
+
+      async function generateImage() {
+        const userDescription = description.value.trim();
+        if (!userDescription) {
+          setStatus('Please enter a ring description first.', true);
+          return;
+        }
+
+        generateBtn.disabled = true;
+        setStatus('Generating your AI image...');
+
+        const prompt = buildPrompt(userDescription);
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=1024&height=1024&seed=${Date.now()}&model=flux`;
+
+        const img = createImage(imageUrl, `AI concept image for: ${userDescription}`);
+
+        img.onload = () => {
+          placeholder?.remove();
+          imageWrap.innerHTML = '';
+          imageWrap.appendChild(img);
+          setStatus('Image generated. Ready to request your quote or book an appointment.');
+          generateBtn.disabled = false;
+        };
+
+        img.onerror = () => {
+          setStatus('Unable to generate image right now. Please try again in a moment.', true);
+          generateBtn.disabled = false;
+        };
+      }
+
+      sampleBtn.addEventListener('click', () => {
+        description.value = '18k yellow gold vintage-inspired engagement ring with a 1.8 carat cushion-cut center diamond, floral halo, milgrain details, and diamond-set shoulders';
+        setStatus('Sample prompt loaded. Click “Generate AI Ring Image”.');
+      });
+
+      generateBtn.addEventListener('click', generateImage);
+    </script>
+  </body>
+</html>
